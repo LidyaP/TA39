@@ -33,16 +33,16 @@
 #     tava = 1
 #
 #     def supa_mea(self):
-#         print('am facut supa')
+#         print('supa mea')
 #
 # class Copil_chef(Chef):
-#     tava1 = 10
+#         tava1 = 10
 #
-#     def salata_mea(self):
+#     def masa_mea(self):
 #         print('salata mea')
 #
 # meniu = Chef()
-# meniu.salata_mea()
+# meniu.masa_mea()
 
 # Polimorfismul: doua functii cu acelasi nume dar comportament diferit
 # class Romania:
@@ -150,3 +150,94 @@
 # car1.get_color()
 # car1.set_color('Rosu')
 # car1.get_color()
+
+from abc import ABC, abstractmethod
+
+
+class FormaGeometrica(ABC):
+    PI = 3.14
+
+    @abstractmethod
+    def aria(self):
+        raise NotImplementedError
+
+    def descrie(self):
+        print('Cel mai probabil am colturi')
+
+
+class Patrat(FormaGeometrica, ABC):
+
+    def __init__(self, latura):
+        self.__latura = latura
+
+    @property
+    def latura(self):
+        return self.__latura
+
+    @latura.getter
+    def latura(self):
+        print(f'Getter: Latura este: {self.__latura}')
+        return self.__latura
+
+    @latura.setter
+    def latura(self, latura):
+        print(f'Setter: Noua latura este: {latura}')
+        self.__latura = latura
+
+    @latura.deleter
+    def latura(self):
+        print('Am sters latura')
+        self.__latura = None
+
+    def aria(self):
+        print(f'Aria patratului este: {self.__latura ** 2}')
+
+
+class Cerc(FormaGeometrica, ABC):
+
+    def __init__(self, raza):
+        self.__raza = raza
+
+    @property
+    def raza(self):
+        return self.__raza
+
+    @raza.getter
+    def raza(self):
+        print(f'Getter: Latura este: {self.__raza}')
+        return self.__raza
+
+    @raza.setter
+    def raza(self, raza):
+        print(f'Setter: Noua latura este: {raza}')
+        self.__raza = raza
+
+    @raza.deleter
+    def raza(self):
+        print('Deleter: Am sters latura')
+        self.__raza = None
+
+    def aria(self):
+        print(f'Aria cercului este: {FormaGeometrica.PI * (self.__raza ** 2)}')
+
+    def descrie(self):
+        print('Eu nu am colturi')
+
+
+cerc1 = Cerc(10)
+cerc1.raza
+cerc1.raza = 20
+cerc1.aria()
+del cerc1.raza
+cerc1.raza
+
+print('_____________________________')
+
+patrat1 = Patrat(15)
+patrat1.latura
+patrat1.latura = 30
+patrat1.aria()
+del patrat1.latura
+patrat1.latura
+
+patrat1.latura
